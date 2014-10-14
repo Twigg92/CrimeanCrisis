@@ -50,7 +50,6 @@ public:
 	void rotateBoundingBox(float angle);
 	void SetDisplay();
 	void Draw();					// Draws the model on the screen
-	virtual void Update() {};
 
 	Vector pos;
 	Vector rot;

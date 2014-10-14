@@ -49,7 +49,7 @@ public:
 		float z_far;
 	}	glutWindow;			// okno
 
-	void updateWindow();
+	//void updateWindow();
 
 	void init();
 	void display();
@@ -78,12 +78,19 @@ public:
 	Vector getClickPosInWorld();
 	Vector getDirection();
 	
+	// ray casting
+	Vector clickPosInWorld;		// two points describing picking ray
+	Vector rayDirection;
+	Vector screenHoritzontally;
+	Vector screenVertically;
+	float* point;
+
 private:
 	Screen screen;
 	int x1, x2, y1, y2;								// wspó³rzêdne kursora
 	int map_x1, map_x2, map_y1, map_y2;				// wspó³rzêdne na mapie
-	GLFWwindow *window;
-	float g_rotation;
+	//GLFWwindow *window;
+	//float g_rotation;
 	std::list<GraphicObject> *objList;			// jednostka (lista jednostek)
 	GraphicObject *plain;		// mapa
 
@@ -115,10 +122,5 @@ private:
 	void displayMainMenuScreen();
 	void displayServerMenuScreen();
 
-	// ray casting
-	Vector clickPosInWorld;		// two points describing picking ray
-	Vector rayDirection;
-	Vector screenHoritzontally;
-	Vector screenVertically;
-	float* point;
+
 };

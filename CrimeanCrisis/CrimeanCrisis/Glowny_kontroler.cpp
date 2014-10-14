@@ -19,22 +19,22 @@ void Glowny_kontroler::Start()
 {
 	GraphicObject obj;	
 	obj.loadOBJ("models/megahuge_t1.obj", "grafiki/tex1.bmp");
-	obj.pos.z = 10.0;						// czołg nie unosi sie w powietrzu - czemu nie jest widoczny na początku domyślcie sie sami (bo ja nie mam zielonego pojęcia) (-20.0)
+	obj.pos.z = 0.0;						// czołg nie unosi sie w powietrzu - czemu nie jest widoczny na początku domyślcie sie sami (bo ja nie mam zielonego pojęcia) (-20.0)
 	obj.Color[0] = 0.0;						// zmiana koloru czołgu - dla celów testowych
 
 	// TESTING AREA !!!
 	GraphicObject test_obj_1;		// fioletowy
 	test_obj_1.loadOBJ("models/megahuge_t1.obj", "grafiki/tex1.bmp");
-	//test_obj_1.pos.x = 30.0;
-	//test_obj_1.pos.y = 10.0;
-	test_obj_1.pos.z = 10.0;
+	test_obj_1.pos.x = 30.0;
+	test_obj_1.pos.y = 10.0;
+//	test_obj_1.pos.z = 10.0;
 	test_obj_1.Color[1] = 0.5;
 
 	GraphicObject test_obj_2;		// szary
 	test_obj_2.loadOBJ("models/megahuge_t1.obj", "grafiki/tex1.bmp");
-	test_obj_2.pos.x = 10.0;
-	test_obj_2.pos.y = -10.0;
-	test_obj_2.pos.z = 10.0;
+	test_obj_2.pos.x = -1.488228;
+	test_obj_2.pos.y = 3.262749;
+//	test_obj_2.pos.z = 10.0;
 	test_obj_2.Color[2] = 1.0;
 
 	RendController::init(_objects);

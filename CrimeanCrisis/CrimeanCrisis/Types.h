@@ -30,7 +30,8 @@ public:
 };
 
 // Structure representing RGB/RGBA color
-class Color {
+class Color 
+{
 public:
 	float r, g, b, a;
 

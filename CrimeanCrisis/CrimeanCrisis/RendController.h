@@ -21,7 +21,7 @@ public:
 
 	static Renderer *renderer;
 
-	static void updateWindow();
+	//static void updateWindow();
 
 	static void init(std::list<GraphicObject>*);
 	static void display();

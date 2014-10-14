@@ -4,7 +4,8 @@
 #include "Types.h"
 
 // Class representing OpenGL light settings
-class Light {
+class Light 
+{
 private:
 	int number;
 	Vector pos;

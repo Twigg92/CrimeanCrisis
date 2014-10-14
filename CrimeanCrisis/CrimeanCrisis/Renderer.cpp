@@ -2,7 +2,7 @@
 
 using namespace glm;
 
-Renderer::Renderer() : window(NULL)
+Renderer::Renderer()// : window(NULL)
 {
 
 }
@@ -20,10 +20,10 @@ Renderer::~Renderer()
 	delete serverMenu;
 }
 
-void Renderer::updateWindow()
-{
-	glutSwapBuffers();
-}
+//void Renderer::updateWindow()
+//{
+//	glutSwapBuffers();
+//}
 
 void Renderer::init()
 {
@@ -113,9 +113,17 @@ void Renderer::displayServerMenuScreen()
 void Renderer::displayGameScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	GLfloat m[16];
+	glGetFloatv(GL_MODELVIEW_MATRIX, m);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(cam.x, cam.y, cam.z, dir.x, dir.y, dir.z, 0.0, 1.0, 0.0);
+	glGetFloatv(GL_MODELVIEW_MATRIX, m);		// wektor up: m[1], m[5], m[9]		współrzędne cam: m[12], m[13], m[14]
+	
+	for (int i = 0; i < 16; i++)
+	{
+		printf("m[%d]=%f\n", i, m[i]);
+	}
 
 	set3D(this->win.width, this->win.height);
 
@@ -126,6 +134,7 @@ void Renderer::displayGameScreen()
 	glPopMatrix();
 	glPushMatrix();
 	plain->Draw();		// rysuj mapę
+	glPopMatrix();
 
 	std::list<GraphicObject>::iterator iter;	// rysuj jednostki
 	for (iter = objList->begin(); iter != objList->end(); ++iter) {
@@ -270,7 +279,7 @@ void Renderer::mouse(int button, int state, int x, int y)
 	case MainMenuScreen:
 		result = mainMenu->whatIsClicked(x, win.height - y);
 		break;
-
+		
 	case ServerMenuScreen:
 		result = serverMenu->whatIsClicked(x, win.height - y, serverProperties);
 		break;
@@ -307,6 +316,11 @@ void Renderer::mouse(int button, int state, int x, int y)
 		}
 		return;
 	}
+
+	//if (inGame)
+
+
+
 
 
 	// UWAGA, PROGRAM TU NIE WEJDZIE JESLI KLIKNIEMY W UI
@@ -362,15 +376,22 @@ void Renderer::prepareToSelection()
 	GLfloat m[16];
 	glGetFloatv(GL_MODELVIEW_MATRIX, m);
 
-	this->up.x = m[1];				// up.x = 0.0;
-	this->up.y = m[5];				// up.y = 1.0;
-	this->up.z = m[9];				// up.z = 0.0;
+	up.x = m[1];				
+	up.y = m[5];				
+	up.z = m[9];		
+	//up.x = 0.0;
+	//up.y = 1.0;
+	//up.z = 0.0;
 
-	camPos.x = m[12];					// pos.x = cam.x;
-	camPos.y = m[13];					// pos.y = cam.y;
-	camPos.z = m[14];					// pos.z = cam.z;
+	camPos.x = m[12];					
+	camPos.y = m[13];					
+	camPos.z = m[14];			
+	//camPos.x = cam.x;
+	//camPos.y = cam.y;
+	//camPos.z = cam.z;
 
 	this->camView.subAndAssign(dir, camPos);
+	//this->camView.subAndAssign(dir, cam);
 	this->camView.normalize();
 
 	//// screenX
@@ -394,6 +415,7 @@ void Renderer::prepareToSelection()
 void Renderer::pick()
 {
 	clickPosInWorld.set(camPos);
+	//clickPosInWorld.set(cam);
 	clickPosInWorld.add(camView);
 
 	float screenX;
@@ -414,6 +436,7 @@ void Renderer::pick()
 
 	rayDirection.set(clickPosInWorld);
 	rayDirection.sub(camPos);
+	//rayDirection.sub(cam);
 }
 
 void Renderer::intersectionWithXyPlane(float* worldPos)

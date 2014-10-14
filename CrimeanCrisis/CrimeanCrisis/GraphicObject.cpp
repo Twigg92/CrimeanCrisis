@@ -345,7 +345,8 @@ void GraphicObject::SetDisplay()
 
 void GraphicObject::Draw()
 {
-	glTranslatef(this->pos.x, this->pos.y, this->pos.z);
+	glPushMatrix();
+	glTranslatef(pos.x, pos.y, pos.z);
 	glRotatef(rot.x, rot.y, rot.z, 2);
 	glColor3fv(Color);
 
@@ -371,4 +372,6 @@ void GraphicObject::Draw()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, defaultSpecular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, defaultShininess);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, defaultEmission);
+
+	glPopMatrix();
 }
